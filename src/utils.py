@@ -66,7 +66,7 @@ def live_plot_q():
     plt.show()
     return()
 
-def live_plot_iq(cfreq,vmin=100,vmax=10000):
+def live_plot_iq(cfreq):
     spectrum = []
     fig,axs = plt.subplots(2,2)
     plt.tight_layout()
@@ -110,8 +110,9 @@ def live_plot_iq(cfreq,vmin=100,vmax=10000):
         axs[1,1].set_xlabel("Frequency(MHz)")
         axs[1,1].set_title("Live Q Spectrum")
 
-        axs[0,1].imshow(spectrum,aspect='auto',vmin=100,vmax=1000)
+        axs[0,1].imshow(spectrum,extent=(cfreq-100,cfreq+100,0,100),aspect='auto')
         axs[0,1].set_title('IQ Waterfall')
+        axs[0,1].set_xlabel("Frequency(MHz)")
         
         packet_cnt+=1
         plt.pause(0.001)
