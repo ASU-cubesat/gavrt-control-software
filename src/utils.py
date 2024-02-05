@@ -127,3 +127,19 @@ def parse_packet():
     data_2 = struct.unpack('<8200b', data)
     return data_2 
 
+def to_gnuradio():
+    while 1:
+        data = parse_packet()
+        iq = []
+        for i in range(8200//2):
+            iq.append(data[2*i] + 1j*data[2*i + 1])
+        
+        MESSAGE = iq 
+
+        UDP_IP = "127.0.0.1"
+        UDP_PORT = 5005
+        
+        sock = socket.socket(socket.AF_INET, # Internet
+                        socket.SOCK_DGRAM) # UDP
+        print(bytes(MESSAGE))
+        sock.sendto(bytes(MESSAGE), (UDP_IP, UDP_PORT))
